@@ -75,7 +75,7 @@ function langUp() {
       .then(function(object){
               // 保存に成功した場合の処理
               alert("success");
-              document.querySelector('#navigator').resetToPage('page2.html');
+              document.querySelector('#navigator').resetToPage('lang-show.html');
               debug_checkuser();
       })
       .catch(function(err){
@@ -83,6 +83,46 @@ function langUp() {
         debug_checkuser();
       });
 }
+
+function elemUp() {
+  var langName=document.forms.elemForm.langName.value;
+  var elemName=document.forms.elemForm.elemName.value;
+  var currentUser =ncmb.User.getCurrentUser();
+
+  var lang = ncmb.DataStore("Lang");
+
+  lang.order("createDate",true)
+            .equalTo("name", langName)
+            .fetch()
+            .then(function(result){
+                // 保存先クラスの作成
+                var Elem = ncmb.DataStore("Element");
+
+                // 保存先クラスのインスタンスを生成
+                var elem = new Elem();
+
+                // 値を設定と保存
+                elem.set("name", elemName)
+                    .set("lang", result)
+                    .save()
+                    .then(function(object){
+                            // 保存に成功した場合の処理
+                            alert("success");
+                            document.querySelector('#navigator').resetToPage('lang-show.html');
+                            debug_checkuser();
+                    })
+                    .catch(function(err){
+                            // 保存に失敗した場合の処理
+                      alert("Elementの保存に失敗しました");
+                      debug_checkuser();
+                    });
+            })
+            .catch(function(error){
+                alert("Langageの検索に失敗しました：\n" + error);
+            });
+}
+
+
 
 function logout(){
   ncmb.User.logout()

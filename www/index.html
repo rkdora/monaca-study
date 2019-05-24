@@ -36,6 +36,11 @@
         page.querySelector('#signUp-button').onclick = function() {
           document.querySelector('#navigator').pushPage('page1.html');
         };
+      } else if (page.matches('#lang-show-page')) {
+
+        page.querySelector('#pop-button').onclick = function() {
+          document.querySelector('#navigator').popPage();
+        };
       }
     });
 
@@ -106,6 +111,28 @@
         </form>
         <br><br><br>
         <ons-button id="signUp-button">新規登録</ons-button>
+      </div>
+    </ons-page>
+  </ons-template>
+
+    <ons-template id="lang-show.html">
+    <ons-page id="lang-show-page">
+      <ons-toolbar>
+        <div class="center"></div>
+      </ons-toolbar>
+
+      <div class="content" style="text-align: center">
+        <h1>言語詳細</h1>
+        <form id="elemForm">
+          <p>言語名<p>
+          <input type="text" id="langName" value=""><br>
+          <p>要素名<p>
+          <input type="text" id="elemName" value=""><br>
+          <input type="button" onclick="elemUp();" value="登録">
+        </form>
+        <br>
+        <input type="button" onclick="logout();" value="ログアウト">
+        <ons-button id="pop-button">Pop page</ons-button>
       </div>
     </ons-page>
   </ons-template>
