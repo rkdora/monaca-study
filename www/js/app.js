@@ -1,66 +1,69 @@
 const ncmb = new NCMB("bd8b5948616d8b76b966ecc7825cf1a3338b14d7c42fa790ca2096363dddc4d4", "e68e4ae57e8a5bd217d6b5997b0e073b66c0cd9985100044ce6e54f83065a174");
 
+function autoLogin() {
+  var currentUser = ncmb.User.getCurrentUser();
+  if (currentUser) {
+    console.log("ログイン中のユーザー: " + currentUser.get("userName"));
+    document.querySelector('#navigator').pushPage('record.html');
+  } else {
+    console.log("未ログインまたは取得に失敗");
+  }
+}
+
 function signUp(){
-  debug_checkuser();
-  var user_name = document.forms.signUp_form.signUp_username.value;
-  var user_password = document.forms.signUp_form.signUp_password.value;
+  debugCheckuser();
+  var userName = document.forms.signUpForm.signUpName.value;
+  var userPassword = document.forms.signUpForm.signUpPassword.value;
 
   var user = new ncmb.User();
 
-  user.set("userName", user_name) /* ユーザー名 */
-      .set("password", user_password) /* パスワード */
+  user.set("userName", userName) /* ユーザー名 */
+      .set("password", userPassword) /* パスワード */
 
   // ユーザーの新規登録処理
   user.signUpByAccount()
     .then(function(){
       // 登録後処理
-      alert("signup success");
-      ncmb.User.login(user_name, user_password)
+      ncmb.User.login(userName, userPassword)
               .then(function(data){
-              // ログイン後処理
-              // 登録後処理
-              alert("login success");
-              document.querySelector('#navigator').pushPage('page2.html');
-              debug_checkuser();
+              document.querySelector('#navigator').pushPage('record.html');
+              debugCheckuser();
               })
               .catch(function(err){
               // エラー処理
                 alert("login error");
-                debug_checkuser();
+                debugCheckuser();
               });
     })
     .catch(function(err){
       // エラー処理
       alert("signup error");
-      debug_checkuser();
+      debugCheckuser();
     });
 }
 
 function login(){
-  var user_name = document.forms.login_form.login_name;
-  var user_password = document.forms.login_form.login_password;
-  console.log("user_name: " + user_name.value);
-  ncmb.User.login(user_name.value, user_password.value)
+  var userName = document.forms.loginForm.loginName.value;
+  var userPassword = document.forms.loginForm.loginPassword.value;
+  console.log("user_name: " + userName);
+  ncmb.User.login(userName, userPassword)
     .then(function(data){
       // ログイン後処理
-      // 登録後処理
       alert("success");
-      document.querySelector('#navigator').pushPage('page2.html');
-      debug_checkuser();
+      document.querySelector('#navigator').pushPage('record.html');
+      debugCheckuser();
 
     })
     .catch(function(err){
-      debug_checkuser();
       // エラー処理
+      alert(err);
     });
 }
 
 function langUp() {
-  debug_checkuser();
-  var langName="";
-  langName = document.forms.lang_form.langName.value;
-  var currentUser ="";
-  currentUser = ncmb.User.getCurrentUser();
+  debugCheckuser();
+  var langName = document.forms.langForm.langName.value;
+  var currentUser = ncmb.User.getCurrentUser();
   console.log(currentUser.userName);
   // 保存先クラスの作成
   var Lang = ncmb.DataStore("Lang");
@@ -74,13 +77,13 @@ function langUp() {
       .save()
       .then(function(object){
               // 保存に成功した場合の処理
-              alert("success");
-              document.querySelector('#navigator').resetToPage('lang-show.html');
-              debug_checkuser();
+              alert("lang success");
+              document.querySelector('#navigator').resetToPage('myPage.html');
+              debugCheckuser();
       })
       .catch(function(err){
-              // 保存に失敗した場合の処理
-        debug_checkuser();
+        // 保存に失敗した場合の処理
+        alert(err);
       });
 }
 
@@ -108,13 +111,13 @@ function elemUp() {
                     .then(function(object){
                             // 保存に成功した場合の処理
                             alert("success");
-                            document.querySelector('#navigator').resetToPage('lang-show.html');
-                            debug_checkuser();
+                            document.querySelector('#navigator').resetToPage('myPage.html');
+                            debugCheckuser();
                     })
                     .catch(function(err){
                             // 保存に失敗した場合の処理
                       alert("Elementの保存に失敗しました");
-                      debug_checkuser();
+                      debugCheckuser();
                     });
             })
             .catch(function(error){
@@ -127,17 +130,16 @@ function elemUp() {
 function logout(){
   ncmb.User.logout()
         .then(function(){
-          // document.querySelector('#navigator').pushPage('page3.html');
-          document.querySelector('#navigator').resetToPage('page3.html');
-          debug_checkuser();
+          document.querySelector('#navigator').resetToPage('login.html');
+          debugCheckuser();
       })
       .catch(function(err){
-              // 保存に失敗した場合の処理
-        debug_checkuser();
+        alert(err);
+        debugCheckuser();
       });
 }
 
-function debug_checkuser() {
+function debugCheckuser() {
   var currentUser = ncmb.User.getCurrentUser();
   if (currentUser) {
     console.log("ログイン中のユーザー: " + currentUser.get("userName"));
@@ -145,3 +147,75 @@ function debug_checkuser() {
     console.log("未ログインまたは取得に失敗");
   }
 }
+
+// async function langSearch(){
+//   var langName=document.forms.elemForm.langName.value;
+//   var lang = ncmb.DataStore("Lang");
+//   // var resultElements = [];
+
+//   // lang.order("createDate",true)
+//   //           .equalTo("name", langName)
+//   //           .fetch()
+//   //           .then(function(langResult){
+//   //               // 保存先クラスの作成
+//                 var elem = ncmb.DataStore("Element");
+//   //               console.log("langResult.name: " + langResult.name);
+//     const langQuery = lang.equalTo('objectId', "YJUODJRgwGnpjDDF");
+//     const results = await elem
+//       .inQuery('lang', langQuery)
+//       .fetchAll()
+//       .then(function(resultElements){
+//                         var target = document.getElementById("lang-elements");
+//                         console.log("resultElements: " +  resultElements);
+//                         var texts="";
+//                         resultElements.forEach( function (element) {
+//                             console.log("element.name: " + element.name);
+//                             texts += element.name;
+//                             // document.querySelector('#navigator').resetToPage('page3.html');
+//                         });
+//                         target.textContent = texts;
+//                         // document.querySelector('#navigator').resetToPage('lang-show.html');
+//                         debug_checkuser();
+//                     })
+//                     .catch(function(err){
+//                             // 保存に失敗した場合の処理
+//                       alert(err);
+//                       console.log(err);
+//                       debug_checkuser();
+//                     });
+
+//     // var target = document.getElementById("lang-elements");
+//     // var ahi = document.createElement('p');
+
+//     //             console.log("results: " +  results);
+//     //                     results.forEach( function (element) {
+//     //                         console.log("element.name: " + element.name);
+//     //                         ahi.value = element.name;
+//     //                         target.insertAdjacentElement('beforend', ahi);
+//     //                       });
+
+//     //             // 値を設定と保存
+//     //             elem.include("lang")
+//     //                 .fetchAll()
+//     //                 .then(function(resultElements){
+//     //                     var target = document.getElementById("lang-elements");
+//     //                     console.log("resultElements: " +  resultElements);
+//     //                     resultElements.forEach( function (element) {
+//     //                       if(element.lang.name == langName){
+//     //                         console.log("element.name: " + element);
+//     //                         target.innerText += element.name;
+//     //                       }
+//     //                     });
+//     //                     // document.querySelector('#navigator').resetToPage('lang-show.html');
+//     //                     debug_checkuser();
+//     //                 })
+//     //                 .catch(function(err){
+//     //                         // 保存に失敗した場合の処理
+//     //                   alert("Elementの保存に失敗しました");
+//     //                   debug_checkuser();
+//     //                 });
+//             // })
+//             // .catch(function(error){
+//             //     alert("Langageの検索に失敗しました：\n" + error);
+//             // });
+// }
