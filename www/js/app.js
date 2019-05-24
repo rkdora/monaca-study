@@ -47,6 +47,7 @@ function login(){
       alert("success");
       document.querySelector('#navigator').pushPage('page2.html');
       debug_checkuser();
+
     })
     .catch(function(err){
       debug_checkuser();
@@ -74,7 +75,7 @@ function langUp() {
       .then(function(object){
               // 保存に成功した場合の処理
               alert("success");
-              document.querySelector('#navigator').pushPage('page2.html');
+              document.querySelector('#navigator').resetToPage('page2.html');
               debug_checkuser();
       })
       .catch(function(err){
@@ -86,7 +87,8 @@ function langUp() {
 function logout(){
   ncmb.User.logout()
         .then(function(){
-          document.querySelector('#navigator').pushPage('page3.html');
+          // document.querySelector('#navigator').pushPage('page3.html');
+          document.querySelector('#navigator').resetToPage('page3.html');
           debug_checkuser();
       })
       .catch(function(err){
