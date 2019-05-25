@@ -28,6 +28,8 @@ function signUp(){
               .then(function(data){
               document.querySelector('#navigator').pushPage('record.html');
               debugCheckuser();
+                var db = new DataBase();
+               db.show_lan();
               })
               .catch(function(err){
               // エラー処理
@@ -52,6 +54,8 @@ function login(){
       alert("success");
       document.querySelector('#navigator').pushPage('record.html');
       debugCheckuser();
+            var db = new DataBase();
+               db.show_lan();
 
     })
     .catch(function(err){
