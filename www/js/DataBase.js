@@ -27,7 +27,7 @@ DataBase.prototype = {
             .set("Element",element)
             .save()
             .then(function(results){
-                alert("saved");
+                alert("記録しました");
             })
             .catch(function(err){
                 alert("save err");
@@ -128,11 +128,11 @@ DataBase.prototype = {
                         elem = results[i].get("Element");
                         if(buff != elem || i == 0){
                             buff = elem;
-                            target.innerHTML += "<input type='radio' name='elem' value='"
-                                + elem + "'>" + elem + "<br>";
+                            target.innerHTML += "<br><br><input type='radio' name='elem' value='"
+                                + elem + "'>" + elem;
                         }
                     }
-                    target.innerHTML += "<input type='button' value='完了' onclick='db.selectedsave();'>";
+                    target.innerHTML += "<br><br><input type='button' value='完了' style='font-size:30px;' onclick='db.selectedsave();'>";
                     console.log("show success");
                 })
                 .catch(function(err){

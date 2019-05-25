@@ -15,44 +15,44 @@
     <script src="js/DataBase.js"></script>
 
     <script>
-     var db = new DataBase();
-     db.show_lan();
-     // Page init event
-     document.addEventListener('init', function(event) {
-         var page = event.target;
+      var db = new DataBase();
+      db.show_lan();
+      // Page init event
+      document.addEventListener('init', function(event) {
+      var page = event.target;
 
-         if (page.matches('#login-page')) {
+      if (page.matches('#login-page')) {
 
-             autoLogin();
+      autoLogin();
 
-             page.querySelector('#signUp-button').onclick = function() {
-                 document.querySelector('#navigator').pushPage('signUp.html');
-             };
+      page.querySelector('#signUp-button').onclick = function() {
+      document.querySelector('#navigator').pushPage('signUp.html');
+      };
 
-         } else if (page.matches('#record-page') || page.matches('#people-page') || page.matches('#my-page')) {
-             page.querySelector('#record-button').onclick = function() {
-                 document.querySelector('#navigator').resetToPage('record.html');
-                 var db = new DataBase();
-                 db.show_lan();
-             };
+      } else if (page.matches('#record-page') || page.matches('#people-page') || page.matches('#my-page')) {
+      page.querySelector('#record-button').onclick = function() {
+      document.querySelector('#navigator').resetToPage('record.html');
+      var db = new DataBase();
+      db.show_lan();
+      };
 
-             page.querySelector('#people-button').onclick = function() {
-                 document.querySelector('#navigator').resetToPage('people.html');
-                 var db = new DataBase();
-                 db.everyLanRecord();
-             };
+      page.querySelector('#people-button').onclick = function() {
+      document.querySelector('#navigator').resetToPage('people.html');
+      var db = new DataBase();
+      db.everyLanRecord();
+      };
 
-             page.querySelector('#myPage-button').onclick = function() {
-                 document.querySelector('#navigator').resetToPage('myPage.html');
-             };
-         }
+      page.querySelector('#myPage-button').onclick = function() {
+      document.querySelector('#navigator').resetToPage('myPage.html');
+      };
+      }
 
-     });
+      });
 
-     if (ons.platform.isIPhoneX()) {
-         document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
-         document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
-     }
+      if (ons.platform.isIPhoneX()) {
+      document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
+      document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+      }
 
     </script>
   </head>
@@ -66,13 +66,13 @@
         </ons-toolbar>
 
         <div class="content" style="text-align: center">
-          <h1>ログイン</h1>
+          <h1>ProChart</h1>
           <form id="loginForm">
             <p>ユーザー名<p>
               <input type="text" id="loginName"><br>
-              <p>パスワード</p>
-              <input type="password" id="loginPassword"><br><br>
-              <input type="button" onclick="login();" value="ログイン">
+            <p>パスワード</p>
+            <input type="password" id="loginPassword"><br><br>
+            <input type="button" onclick="login();" value="ログイン">
           </form>
           <br><br><br>
           <ons-button id="signUp-button">新規登録</ons-button>
@@ -92,9 +92,9 @@
           <form id="signUpForm">
             <p>ユーザー名<p>
               <input type="text" id="signUpName" value=""><br>
-              <p>パスワード</p>
-              <input type="password" id="signUpPassword" value=""><br><br>
-              <input type="button" onclick="signUp();" value="登録">
+            <p>パスワード</p>
+            <input type="password" id="signUpPassword" value=""><br><br>
+            <input type="button" onclick="signUp();" value="登録">
           </form>
         </div>
       </ons-page>
@@ -109,17 +109,18 @@
 
         <div class="wrapper">
           <div class="content" style="text-align: center">
-            <form id="langForm"> 
-              <label for="select">言語を選択</label>
-              <select id="language" onchange="db.show_ele();">
-                <option value="" selected>--選択して下さい--</option>
+            <br><br><br>
+            <form id="langForm">
+              <label for="select" style="font-size:30px;">言語</label>
+              <select id="language" onchange="db.show_ele();" style="font-size:30px;">
+                <option value="" selected>選択して下さい</option>
               </select>
               <!-- </form> -->
-              <div id="ele"></div>
+              <div id="ele" style="font-size:25px;"></div>
               <!-- <form id="langForm">
                    <p>言語名<p>
-                   <input type="text" id="langName" value=""><br>
-                   <input type="button" onclick="langUp();" value="登録"> -->
+                  <input type="text" id="langName" value=""><br>
+                  <input type="button" onclick="langUp();" value="登録"> -->
             </form>
             <br>
             <!-- <input type="button" onclick="logout();" value="ログアウト"> -->
