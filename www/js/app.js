@@ -66,22 +66,28 @@ function login(){
 
 function langUp() {
     debugCheckuser();
-    var langName = document.forms.langForm.langName.value;
+    var hoge = document.getElementById("language").value;
+    console.log("hoge:"+hoge);
+    var langName = document.forms.langForm.newLang.value;
     var currentUser = ncmb.User.getCurrentUser();
+    var elemName = document.forms.langForm.newElem.value;
+    console.log("langName:"+langName);
+    console.log("elemName:"+elemName);
     console.log(currentUser.userName);
     // 保存先クラスの作成
-    var Lang = ncmb.DataStore("Lang");
+    var Data = ncmb.DataStore("Data");
 
     // 保存先クラスのインスタンスを生成
-    var lang = new Lang();
+    var data = new Data();
 
     // 値を設定と保存
-    lang.set("name", langName)
-        .set("user", currentUser)
+    data.set("Language", langName)
+        .set("User", currentUser)
+        .set("Element", elemName)
         .save()
         .then(function(object){
             // 保存に成功した場合の処理
-            alert("lang success");
+            alert("data save");
             document.querySelector('#navigator').resetToPage('myPage.html');
             debugCheckuser();
         })

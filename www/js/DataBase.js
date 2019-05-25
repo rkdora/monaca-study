@@ -90,61 +90,57 @@ DataBase.prototype = {
             var elementText = document.createElement('input');
             var elementButton = document.createElement('input');
             elementText.type = "text";
-            elementButton.type = "button";
-            elementButton.id = "newLanguageButton";
-            elementButton.value = "要素登録";
+            elementText.id = "newElem";
             target.insertAdjacentElement("afterend", elementButton);
             target.insertAdjacentElement("afterend", elementText);
             langText.type = "text";
-            langButton.type = "button";
-            langButton.id = "newLanguageButton";
-            langButton.value = "言語登録";
+            langText.id = "newLang";
             target.insertAdjacentElement("afterend", langButton);
             target.insertAdjacentElement("afterend", langText);
             
         }
         else{
             var Data = ncmb.DataStore("Data");
-          //  console.log(inputValue);
+            //  console.log(inputValue);
             Data.order("Language",false)
-                    .equalTo("Language",inputValue)
-                    .fetchAll()
-                    .then(function(results){
-                        var elesorted = [];
-                        var k = 1;
-                        console.log("results[0]"+results[0].get("Element"));
-                        var buff = results[0].get("Element");
-                      //  console.log(buff);
-                        elesorted[0] = buff;
+                .equalTo("Language",inputValue)
+                .fetchAll()
+                .then(function(results){
+                    var elesorted = [];
+                    var k = 1;
+                    console.log("results[0]"+results[0].get("Element"));
+                    var buff = results[0].get("Element");
+                    //  console.log(buff);
+                    elesorted[0] = buff;
+                    
+                    for(i = 1; i < results.length; i++){
                         
-                        for(i = 1; i < results.length; i++){
-                            
-                            if(results[i].get("Element") != buff){
-                                elesorted[k] = results[i].get("Element");
-                                k++;
-                                buff = results[i].get("Element");
-                              //  console.log(buff);
-                            }
+                        if(results[i].get("Element") != buff){
+                            elesorted[k] = results[i].get("Element");
+                            k++;
+                            buff = results[i].get("Element");
+                            //  console.log(buff);
                         }
-                        for(i = 0; i < elesorted.length; i++){
-                            console.log(elesorted[i]);
-                            var target = document.getElementById("language");
-                            var checkBox = document.createElement('input');
-                            checkBox.type = "checkbox";
-                            checkBox.value = elesorted[i];
-                            target.insertAdjacentHTML("afterend", elesorted[i]);
-                            target.insertAdjacentElement("afterend", checkBox);
-                           
-                        }
+                    }
+                    var target = document.getElementById("elemSpace");
+                    target.innerHTML = "";
+                    
+                    for(i = 0; i < elesorted.length; i++){
+                        console.log(elesorted[i]);
+                       var  checkBox = "<input type='radio' value="+elesorted[i]+">"+elesorted[i];
+
+                        target.innerHTML += checkBox;
                         
-                    })
-                    .catch(function(err){
-                        alert(err);
-                    });
-            }
-            
+                    }
+                    
+                })
+                .catch(function(err){
+                    alert(err);
+                });
+        }
+        
 
     }
     
-       
+    
 };

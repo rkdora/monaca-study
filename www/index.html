@@ -107,17 +107,20 @@
         </ons-toolbar>
 
         <div class="wrapper">
-          <select id="language" onchange="db.showCheckBox()">
-            <option id="defaultOption" value="" selected>--選択して下さい--</option>
-            <option value="other">新言語を登録</option>
-            
-          </select>
-          <input type="button" value="SUBMIT" onclick="db.save(user, getId(language).value, getId(element).value)"> 
           <div class="content" style="text-align: center">
             <form id="langForm">
-              <p>言語名<p>
-                <input type="text" id="langName" value=""><br>
-                <input type="button" onclick="langUp();" value="登録">
+              
+              <select id="language" onchange="db.showCheckBox()">
+                <option id="defaultOption" value="" selected>--選択して下さい--</option>
+                <option value="other">新言語を登録</option>  
+              </select>
+              <div id="elemSpace"></div>
+              
+
+              <!-- <input type="button" value="SUBMIT" onclick="db.save(ncmb.User.getCurrentUser(), getId(language).value, getId(element).value)"> -->
+              <input type="button" value="SUBMIT" onclick="langUp();"> 
+
+              
             </form>
             <br>
             <!-- <input type="button" onclick="logout();" value="ログアウト"> -->
