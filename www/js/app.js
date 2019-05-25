@@ -1,4 +1,4 @@
-const ncmb = new NCMB("bd8b5948616d8b76b966ecc7825cf1a3338b14d7c42fa790ca2096363dddc4d4", "e68e4ae57e8a5bd217d6b5997b0e073b66c0cd9985100044ce6e54f83065a174");
+const ncmb = new NCMB("f390f3e88f724de944b3366f0e4d49f1ede7640cf0854765c277f58f5a0f0e12", "1fd4e03f5ad0f688c510b4d8e5c1c1f6fe70e69b852729d33bd215e99aeb7990");
 
 function autoLogin() {
   var currentUser = ncmb.User.getCurrentUser();
@@ -124,8 +124,6 @@ function elemUp() {
                 alert("Langageの検索に失敗しました：\n" + error);
             });
 }
-
-
 
 function logout(){
   ncmb.User.logout()
