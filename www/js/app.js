@@ -1,4 +1,4 @@
-const ncmb = new NCMB("bd8b5948616d8b76b966ecc7825cf1a3338b14d7c42fa790ca2096363dddc4d4", "e68e4ae57e8a5bd217d6b5997b0e073b66c0cd9985100044ce6e54f83065a174");
+const ncmb = new NCMB("f390f3e88f724de944b3366f0e4d49f1ede7640cf0854765c277f58f5a0f0e12", "1fd4e03f5ad0f688c510b4d8e5c1c1f6fe70e69b852729d33bd215e99aeb7990");
 
 function autoLogin() {
   var currentUser = ncmb.User.getCurrentUser();
@@ -64,7 +64,7 @@ function langUp() {
   debugCheckuser();
   var langName = document.forms.langForm.langName.value;
   var currentUser = ncmb.User.getCurrentUser();
-  console.log(currentUser.userName);
+  console.log(currentUser.name);
   // 保存先クラスの作成
   var Lang = ncmb.DataStore("Lang");
 
@@ -72,7 +72,7 @@ function langUp() {
   var lang = new Lang();
 
   // 値を設定と保存
-  lang.set("name", langName)
+  lang.set("userName", langName)
       .set("user", currentUser)
       .save()
       .then(function(object){
@@ -125,8 +125,6 @@ function elemUp() {
             });
 }
 
-
-
 function logout(){
   ncmb.User.logout()
         .then(function(){
@@ -142,7 +140,7 @@ function logout(){
 function debugCheckuser() {
   var currentUser = ncmb.User.getCurrentUser();
   if (currentUser) {
-    console.log("ログイン中のユーザー: " + currentUser.get("userName"));
+    console.log("ログイン中のユーザー: " + currentUser.get("name"));
   } else {
     console.log("未ログインまたは取得に失敗");
   }
