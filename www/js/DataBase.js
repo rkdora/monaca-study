@@ -36,12 +36,12 @@ DataBase.prototype = {
 
     everyLanRecord: async function() {
         var Data = ncmb.DataStore("Data");
-        await Data.order("Language",false)
+              await  Data.order("Language",false)
             .fetchAll()
             .then(function(results){
                 var lang = document.getElementById("lang");
                 var language,buff = "";
-                for(i = 0;i < results.length;i++){
+              for(i = 0;i < results.length;i++){
                     language = results[i].get("Language");
                     if(language != buff || i == 0){
                         console.log("language :" + language);
@@ -79,5 +79,81 @@ DataBase.prototype = {
             .catch(function(err){
                 alert("everyEleRecord err");
             });
-    }
+    },
+
+    show_lan: function() {
+      console.log("1");
+        var Data = ncmb.DataStore("Data");
+        Data.order("Language",false)
+               .fetchAll()
+               .then(function(results){
+                   console.log("success lang get");
+                   var Lname,buff = "";
+                   var box = document.getElementById("language");
+                   for(i = 0;i < results.length;i++){
+                       Lname = results[i].get("Language"); 
+                       if(Lname != buff || i == 0){
+                           box.innerHTML += "<option value='" + Lname + "'>" +
+                               Lname + "</option>";
+                           buff =  Lname;
+                       }
+                   }
+                   box.innerHTML += "<option value='新言語登録'>新言語登録</option>";
+               })
+               .catch(function(err){
+                   console.log("lang get err");
+               });
+    },
+
+        show_ele: function() {
+        var Id = document.getElementById("language");
+        var Data = ncmb.DataStore("Data");
+        if(Id.value == "新言語登録"){
+            var target = document.getElementById("ele");
+            target.innerHTML = "言語<input type='text' id='newLang'><br>";
+            target.innerHTML += "やったこと<input type='text' id='newEle'><br>";
+            target.innerHTML += "<input type='button' value='完了' onclick='db.newsave();'>";
+        }
+        else{
+            console.log(Id.value);
+            Data.order("Element",false)
+                .equalTo("Language",Id.value)
+                .fetchAll()
+                .then(function(results){
+                    var elem,checkbox,buff="";
+                    var target = document.getElementById("ele");
+                    target.innerHTML = ""; 
+                    for(i = 0;i < results.length;i++){
+                        elem = results[i].get("Element");
+                        if(buff != elem || i == 0){
+                            buff = elem;
+                            target.innerHTML += "<input type='radio' name='elem' value='"
+                                + elem + "'>" + elem + "<br>";
+                        }
+                    }
+                    target.innerHTML += "<input type='button' value='完了' onclick='db.selectedsave();'>";
+                   console.log("show success");
+               })
+                .catch(function(err){
+                console.log("show_ele err" + err);
+                 })
+        }
+        },
+
+        selectedsave: function(){
+          var lang = document.getElementById("language").value;
+          var elem = document.getElementById("langForm").elem.value;
+          console.log("lang :" + lang);
+          console.log("elem :" + elem);
+          this.save(ncmb.User.getCurrentUser(),lang,elem);
+        },
+
+
+        newsave: function(){
+          var lang = document.getElementById("newLang").value;
+          var elem = document.getElementById("newEle").value;
+          console.log("lang :" + lang);
+          console.log("elem :" + elem);
+          this.save(ncmb.User.getCurrentUser(),lang,elem);
+        }
 };
