@@ -64,7 +64,7 @@ function langUp() {
   debugCheckuser();
   var langName = document.forms.langForm.langName.value;
   var currentUser = ncmb.User.getCurrentUser();
-  console.log(currentUser.name);
+  console.log(currentUser.userName);
   // 保存先クラスの作成
   var Lang = ncmb.DataStore("Lang");
 
@@ -72,7 +72,7 @@ function langUp() {
   var lang = new Lang();
 
   // 値を設定と保存
-  lang.set("userName", langName)
+  lang.set("name", langName)
       .set("user", currentUser)
       .save()
       .then(function(object){
@@ -140,7 +140,7 @@ function logout(){
 function debugCheckuser() {
   var currentUser = ncmb.User.getCurrentUser();
   if (currentUser) {
-    console.log("ログイン中のユーザー: " + currentUser.get("name"));
+    console.log("ログイン中のユーザー: " + currentUser.get("userName"));
   } else {
     console.log("未ログインまたは取得に失敗");
   }
