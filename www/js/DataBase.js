@@ -46,7 +46,7 @@ DataBase.prototype = {
                     if(language != buff || i == 0){
                         console.log("language :" + language);
                         lang.innerHTML += "<div id='" + language
-                            + "'>" + language + "</div><hr>";
+                            + "' style='font-size:20px;font-weight:900;color:blue;'>" + language + "</div><hr>";
                         buff = language;
                     }
                 }
@@ -73,7 +73,7 @@ DataBase.prototype = {
                         Lang = results[i].get("Language");
                         console.log("Lang:"+ Lang);
                         langId = document.getElementById(Lang);
-                        langId.innerHTML += "<div>" + results[i].get("Element") + "</div>"; 
+                        langId.innerHTML += "<div style='font-weight:normal;color:black;'>" + results[i].get("Element") + "</div>"; 
                     }
                 }
             })
@@ -111,9 +111,9 @@ DataBase.prototype = {
         var Data = ncmb.DataStore("Data");
         if(Id.value == "新言語登録"){
             var target = document.getElementById("ele");
-            target.innerHTML = "言語<input type='text' id='newLang'><br>";
-            target.innerHTML += "やったこと<input type='text' id='newEle'><br>";
-            target.innerHTML += "<input type='button' value='完了' onclick='db.newsave();'>";
+            target.innerHTML = "<br><br>言語<input type='text' id='newLang'><br>";
+            target.innerHTML += "<br>要素<input type='text' id='newEle'><br><br>";
+            target.innerHTML += "<input type='button' value='完了' style='font-size:20px;background-color:blue;color:white;' onclick='db.newsave();'>";
         }
         else{
             console.log(Id.value);

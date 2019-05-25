@@ -66,16 +66,16 @@
         </ons-toolbar>
 
         <div class="content" style="text-align: center">
-          <h1>ProChart</h1>
+          <h1 style="font-size:50px;">ProChart</h1><br>
           <form id="loginForm">
             <p>ユーザー名<p>
-              <input type="text" id="loginName"><br>
+              <input type="text" id="loginName">
             <p>パスワード</p>
             <input type="password" id="loginPassword"><br><br>
-            <input type="button" onclick="login();" value="ログイン">
+            <input type="button" onclick="login();" style="font-size:30px;" value="ログイン">
           </form>
           <br><br><br>
-          <ons-button id="signUp-button">新規登録</ons-button>
+          <ons-button id="signUp-button" style="font-size:30px;">新規登録</ons-button>
         </div>
       </ons-page>
     </ons-template>
@@ -166,6 +166,7 @@
           <div class="content" style="text-align: center">
             <h1><div class="currentUser"></div></h1>
           </div>
+          <img src="tetta.jpg" height="400px">
           <div class="footer">
             <ons-button id="record-button" class="footer-btn">記録</ons-button>
             <ons-button id="people-button" class="footer-btn">みんな</ons-button>

@@ -50,8 +50,8 @@ function login(){
   console.log("user_name: " + userName);
   ncmb.User.login(userName, userPassword)
     .then(function(data){
-      // ログイン後処理
-      alert("success");
+        // ログイン後処理
+       
       document.querySelector('#navigator').pushPage('record.html');
       debugCheckuser();
             var db = new DataBase();
